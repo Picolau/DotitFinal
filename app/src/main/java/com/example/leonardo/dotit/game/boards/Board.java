@@ -277,4 +277,11 @@ public abstract class Board {
     public abstract void connect(ArrayList<Dot> dotsToConnect);
 
     public abstract void setXYLine(int x, int y);
+
+    public void updateLevel(String strLevel) {
+        this.clear();
+
+        this.initDots(strLevel);
+        this.read(strLevel.substring(1));
+    }
 }

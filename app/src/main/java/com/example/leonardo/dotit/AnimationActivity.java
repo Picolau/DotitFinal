@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.example.leonardo.dotit.game.BoardColor;
 import com.example.leonardo.dotit.screen.PlayingScreen;
+import com.example.leonardo.dotit.screen.helpers.FingerEvent;
 import com.example.leonardo.dotit.screen.helpers.ScreenListener;
 import com.example.leonardo.dotit.screen.HomeScreen;
 
@@ -57,10 +58,16 @@ public class AnimationActivity extends View {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
+                        screenListener.searchScreenEventAt((int)event.getX(), (int)event.getY(), FingerEvent.DOWN);
+                        invalidate();
                         break;
                     case MotionEvent.ACTION_MOVE:
+                        screenListener.searchScreenEventAt((int)event.getX(), (int)event.getY(), FingerEvent.MOTION);
+                        invalidate();
                         break;
                     case MotionEvent.ACTION_UP:
+                        screenListener.searchScreenEventAt((int)event.getX(), (int)event.getY(), FingerEvent.UP);
+                        invalidate();
                         break;
                 }
 
