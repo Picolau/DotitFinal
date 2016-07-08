@@ -20,4 +20,9 @@ public class HomeScreen implements ScreenListener {
     public void paint(Canvas canvas) {
 
     }
+
+    @Override
+    public void fling(float x, float y) {
+
+    }
 }

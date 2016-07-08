@@ -17,6 +17,11 @@ public class ModeSelectionScreen implements ScreenListener {
     }
 
     @Override
+    public void fling(float velocityX, float velocityY) {
+
+    }
+
+    @Override
     public void paint(Canvas canvas) {
 
     }

@@ -8,5 +8,7 @@ import android.graphics.Canvas;
 public interface ScreenListener {
     public ScreenEvent searchScreenEventAt(int x, int y, FingerEvent fe);
 
+    public void fling(float velocityX, float velocityY);
+
     public void paint(Canvas canvas);
 }

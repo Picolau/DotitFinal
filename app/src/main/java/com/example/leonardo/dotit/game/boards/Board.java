@@ -14,6 +14,7 @@ import java.util.ArrayList;
  * Created by Leonardo on 28/04/2016.
  */
 public abstract class Board {
+    protected int level;
     protected ArrayList<Connection> connectionsPlayer, connectionsLevel;
     protected Dot[][] dots, dotsImage;
     private boolean isDragging;
@@ -32,7 +33,9 @@ public abstract class Board {
     private int levelBoardYPadding, levelBoardXPadding, levelBoardDotSpacing;
     private int playerBoardYPadding, playerBoardXPadding, playerBoardDotSpacing;
 
-    public Board(String strLevel, int screenWidth, int screenHeight) {
+    public Board(String[] currentLevel, int screenWidth, int screenHeight) {
+        String strLevel = currentLevel[1];
+
         this.connectionsPlayer = new ArrayList();
         this.connectionsLevel = new ArrayList();
 
@@ -45,6 +48,8 @@ public abstract class Board {
         this.yLine = 0;
         this.lastSelectedDot = null;
         this.isDragging = false;
+
+        this.level = 0;
 
         this.read(strLevel.substring(1));
     }
@@ -160,6 +165,7 @@ public abstract class Board {
     public boolean compare() {
         boolean equal = connectionsPlayer.size() != 0;
 
+        // VERIFICA CONEXOES RESTANTES
         for (Connection cMade : this.connectionsPlayer) {
             if (equal) {
                 equal = false;
@@ -168,6 +174,21 @@ public abstract class Board {
             }
 
             for (Connection cLevel : connectionsLevel) {
+                if (cLevel.isEqual(cMade)) {
+                    equal = true;
+                }
+            }
+        }
+
+        // VERIFICA CONEXOES FALTANTES
+        for (Connection cLevel : connectionsLevel) {
+            if (equal) {
+                equal = false;
+            } else {
+                break;
+            }
+
+            for (Connection cMade : this.connectionsPlayer) {
                 if (cLevel.isEqual(cMade)) {
                     equal = true;
                 }
@@ -278,10 +299,14 @@ public abstract class Board {
 
     public abstract void setXYLine(int x, int y);
 
-    public void updateLevel(String strLevel) {
-        this.clear();
+    public abstract String[] getCurrentLevel();
 
-        this.initDots(strLevel);
-        this.read(strLevel.substring(1));
+    public void nextLevel() {
+        level++;
+        String[] currentLevel = getCurrentLevel();
+        // TODO: CHECK IF CURRENT LEVEL IS EMPTY STRINGS TO CONGRATULATE USER
+        this.clear();
+        this.initDots(currentLevel[1]);
+        this.read(currentLevel[1].substring(1));
     }
 }
